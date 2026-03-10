@@ -231,6 +231,22 @@ This repository includes a `Procfile` for easy deployment to PaaS providers.
    nohup python main.py --monitor > comed_monitor.log 2>&1 &
    ```
 
+### AWS Lambda (Serverless)
+
+You can run the monitor on a schedule using AWS Lambda and EventBridge.
+
+1. **Packaging:**
+   - Create a Zip package containing all `.py` files and the contents of your `pip install -r requirements.txt -t .`
+   - Alternatively, use the `Dockerfile` to deploy as a Container Image (recommended for dependencies).
+
+2. **Configuration:**
+   - Set the handler to `lambda_function.lambda_handler`.
+   - Configure Environment Variables in the Lambda console (copy from `config.env`).
+   - Increase the timeout to at least 30 seconds.
+
+3. **Scheduling:**
+   - Create an **Amazon EventBridge** rule to trigger the Lambda on a schedule (e.g., `rate(1 hour)`).
+
 ## API Endpoints
 
 The tool tries multiple ComEd API endpoints:
