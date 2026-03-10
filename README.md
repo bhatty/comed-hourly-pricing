@@ -196,6 +196,41 @@ python main.py --test-slack
 python main.py --test-email
 ```
 
+## Cloud Deployment
+
+### Docker (Recommended)
+
+The easiest way to host this app in the cloud is using Docker.
+
+1. **Build the image:**
+   ```bash
+   docker build -t comed-monitor .
+   ```
+
+2. **Run with Docker Compose:**
+   ```bash
+   docker-compose up -d
+   ```
+
+Make sure you have a `config.env` file in the same directory before running.
+
+### Platform-as-a-Service (Heroku, Render, Railway, etc.)
+
+This repository includes a `Procfile` for easy deployment to PaaS providers.
+
+1. Connect your GitHub repository to the platform.
+2. Add your environment variables (from `config.env`) to the platform's settings.
+3. Deploy as a **Worker** process (not a Web process).
+
+### Manual Linux Server Setup
+
+1. Clone the repo to your server.
+2. Install dependencies: `pip install -r requirements.txt`
+3. Create a systemd service or use `nohup` to run the monitor in the background:
+   ```bash
+   nohup python main.py --monitor > comed_monitor.log 2>&1 &
+   ```
+
 ## API Endpoints
 
 The tool tries multiple ComEd API endpoints:

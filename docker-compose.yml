@@ -1,0 +1,9 @@
+services:
+  comed-monitor:
+    build: .
+    container_name: comed-monitor
+    restart: unless-stopped
+    env_file:
+      - config.env
+    volumes:
+      - ./comed_monitor.log:/app/comed_monitor.log
